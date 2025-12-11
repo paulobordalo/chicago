@@ -16,36 +16,33 @@
                         }
                         else
                         {
-                            <MudAvatar Square="true" Color="Color.Surface" Style="width:100%;height:300px;">@_initials</MudAvatar>
+                            <MudAvatar Square="true" Color="Color.Surface" Style="width:100%;height:300px;">@_initials
+                            </MudAvatar>
                         }
                     </div>
                     <MudText Typo="Typo.h6" Align="Align.Center">@_profile.FirstName @_profile.LastName</MudText>
                     <MudText Align="Align.Center">@_profile.Email</MudText>
                 </MudCardContent>
                 <MudCardActions Class="d-flex justify-center">
-                    <MudFileUpload T="IBrowserFile"
-                                   OnFilesChanged="HandleFileChange"
-                                   Accept="image/*"
-                                   Disabled="_isUploading">
+                    <MudFileUpload T="IBrowserFile" OnFilesChanged="HandleFileChange" Accept="image/*"
+                        Disabled="@_isUploading">
                         <ActivatorContent>
-                            <MudButton Variant="Variant.Filled"
-                                       Color="Color.Primary"
-                                       DropShadow="false" 
-                                       Size="Size.Small"
-                                       StartIcon="@Icons.Material.Filled.CloudUpload">
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" DropShadow="false"
+                                Size="Size.Small" StartIcon="@Icons.Material.Filled.CloudUpload">
                                 Upload Image
                             </MudButton>
                         </ActivatorContent>
                     </MudFileUpload>
                     @if (!string.IsNullOrEmpty(_profile.ImageUrl))
                     {
-                        <MudButton HtmlTag="label" DropShadow="false" Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small" Target="_blank"
-                                   StartIcon="@Icons.Material.Filled.RemoveRedEye" Href="@_profile.ImageUrl" Style="margin-left: 5px;">
+                        <MudButton HtmlTag="label" DropShadow="false" Variant="Variant.Filled" Color="Color.Primary"
+                            Size="Size.Small" Target="_blank" StartIcon="@Icons.Material.Filled.RemoveRedEye"
+                            Href="@_profile.ImageUrl" Style="margin-left: 5px;">
                             View
                         </MudButton>
 
-                        <MudButton HtmlTag="label" DropShadow="false" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small"
-                                   StartIcon="@Icons.Material.Filled.Delete" Style="margin-left: 5px;">
+                        <MudButton HtmlTag="label" DropShadow="false" Variant="Variant.Filled" Color="Color.Error"
+                            Size="Size.Small" StartIcon="@Icons.Material.Filled.Delete" Style="margin-left: 5px;">
                             Delete
                         </MudButton>
                     }
@@ -62,39 +59,29 @@
                 <MudForm @ref="_form" Model="@_profile" OnValidSubmit="SaveProfile" OnInvalidSubmit="OnInvalidProfile">
                     <MudGrid>
                         <MudItem xs="12" sm="6">
-                            <MudTextField @bind-Value="_profile.FirstName"
-                                          Label="First Name"
-                                          Required="true"
-                                          Variant="Variant.Outlined" />
+                            <MudTextField @bind-Value="_profile.FirstName" Label="First Name" Required="true"
+                                Variant="Variant.Outlined" />
                         </MudItem>
                         <MudItem xs="12" sm="6">
-                            <MudTextField @bind-Value="_profile.LastName"
-                                          Label="Last Name"
-                                          Required="true"
-                                          Variant="Variant.Outlined" />
+                            <MudTextField @bind-Value="_profile.LastName" Label="Last Name" Required="true"
+                                Variant="Variant.Outlined" />
                         </MudItem>
                         <MudItem xs="12" sm="6">
-                            <MudTextField @bind-Value="_profile.Email"
-                                          Label="Email"
-                                          Disabled="true"
-                                          Variant="Variant.Outlined" />
+                            <MudTextField @bind-Value="_profile.Email" Label="Email" Disabled="true"
+                                Variant="Variant.Outlined" />
                         </MudItem>
                         <MudItem xs="12" sm="6">
-                            <MudTextField @bind-Value="_profile.PhoneNumber"
-                                          Label="Phone"
-                                          Variant="Variant.Outlined"
-                                          HelperText="Optional. Include country code if needed." />
+                            <MudTextField @bind-Value="_profile.PhoneNumber" Label="Phone" Variant="Variant.Outlined"
+                                HelperText="Optional. Include country code if needed." />
                         </MudItem>
                     </MudGrid>
                     <MudStack Row="true" Spacing="2" Class="mt-3 profile-actions">
-                        <MudButton Color="Color.Primary"
-                                   Variant="Variant.Filled"
-                                   ButtonType="ButtonType.Submit"
-                                   Disabled="_isSavingProfile"
-                                   Loading="_isSavingProfile">
+                        <MudButton Color="Color.Primary" Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                            Disabled="_isSavingProfile" Loading="_isSavingProfile">
                             Save changes
                         </MudButton>
-                        <MudButton Color="Color.Secondary" Variant="Variant.Outlined" OnClick="ReloadProfile" Disabled="_isSavingProfile">
+                        <MudButton Color="Color.Secondary" Variant="Variant.Outlined" OnClick="ReloadProfile"
+                            Disabled="_isSavingProfile">
                             Reset
                         </MudButton>
                     </MudStack>
@@ -109,37 +96,26 @@
                 <MudForm @ref="_passwordForm" OnValidSubmit="ChangePassword" OnInvalidSubmit="OnInvalidPassword">
                     <MudGrid>
                         <MudItem xs="12" sm="4">
-                            <MudTextField @bind-Value="_passwordModel.CurrentPassword"
-                                          Label="Current Password"
-                                          InputType="InputType.Password"
-                                          Required="true"
-                                          Variant="Variant.Outlined" />
+                            <MudTextField @bind-Value="_passwordModel.CurrentPassword" Label="Current Password"
+                                InputType="InputType.Password" Required="true" Variant="Variant.Outlined" />
                         </MudItem>
                         <MudItem xs="12" sm="4">
-                            <MudTextField @bind-Value="_passwordModel.NewPassword"
-                                          Label="New Password"
-                                          InputType="InputType.Password"
-                                          Required="true"
-                                          Variant="Variant.Outlined"
-                                          HelperText="Min 6 chars." />
+                            <MudTextField @bind-Value="_passwordModel.NewPassword" Label="New Password"
+                                InputType="InputType.Password" Required="true" Variant="Variant.Outlined"
+                                HelperText="Min 6 chars." />
                         </MudItem>
                         <MudItem xs="12" sm="4">
-                            <MudTextField @bind-Value="_passwordModel.ConfirmPassword"
-                                          Label="Confirm Password"
-                                          InputType="InputType.Password"
-                                          Required="true"
-                                          Variant="Variant.Outlined" />
+                            <MudTextField @bind-Value="_passwordModel.ConfirmPassword" Label="Confirm Password"
+                                InputType="InputType.Password" Required="true" Variant="Variant.Outlined" />
                         </MudItem>
                     </MudGrid>
                     <MudStack Row="true" Spacing="2" Class="mt-3 profile-actions">
-                        <MudButton Color="Color.Primary"
-                                   Variant="Variant.Filled"
-                                   ButtonType="ButtonType.Submit"
-                                   Disabled="_isChangingPassword"
-                                   Loading="_isChangingPassword">
+                        <MudButton Color="Color.Primary" Variant="Variant.Filled" ButtonType="ButtonType.Submit"
+                            Disabled="_isChangingPassword" Loading="_isChangingPassword">
                             Update password
                         </MudButton>
-                        <MudButton Color="Color.Secondary" Variant="Variant.Outlined" Disabled="_isChangingPassword" OnClick="@(() => _passwordModel = new())">
+                        <MudButton Color="Color.Secondary" Variant="Variant.Outlined" Disabled="_isChangingPassword"
+                            OnClick="@(() => _passwordModel = new())">
                             Clear
                         </MudButton>
                     </MudStack>
@@ -300,16 +276,16 @@
         {
             var response = await IdentityClient.ProfileGetAsync();
             _profile = response is null
-                ? new ProfileModel()
-                : new ProfileModel
-                {
-                    Id = response.Id ?? string.Empty,
-                    FirstName = response.FirstName,
-                    LastName = response.LastName,
-                    Email = response.Email,
-                    PhoneNumber = response.PhoneNumber,
-                    ImageUrl = response.ImageUrl
-                };
+                            ? new ProfileModel()
+            : new ProfileModel
+            {
+                Id = response.Id ?? string.Empty,
+                FirstName = response.FirstName,
+                LastName = response.LastName,
+                Email = response.Email,
+                PhoneNumber = response.PhoneNumber,
+                ImageUrl = response.ImageUrl
+            };
             _avatarPreview = null;
         }
         catch (Exception ex)
@@ -322,9 +298,9 @@
     private void OnInvalidPassword() => Snackbar.Add("Please complete all password fields.", Severity.Error);
 
     private string _initials =>
-        string.Concat(
-            (_profile.FirstName ?? string.Empty).Take(1),
-            (_profile.LastName ?? string.Empty).Take(1)).ToUpperInvariant();
+    string.Concat(
+    (_profile.FirstName ?? string.Empty).Take(1),
+    (_profile.LastName ?? string.Empty).Take(1)).ToUpperInvariant();
 
     private sealed class ProfileModel
     {

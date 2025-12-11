@@ -24,7 +24,7 @@
                     <MudText Typo="Typo.subtitle1">Name: @_user.FirstName @_user.LastName</MudText>
                     <MudText Typo="Typo.subtitle2">Email: @_user.Email</MudText>
                     <MudText Typo="Typo.subtitle2">Phone: @_user.PhoneNumber</MudText>
-                    <MudChip T="string" Color="@(_user.IsActive ? Color.Success : Color.Error)" Size="Size.Small">
+                    <MudChip T="string" Color="@(_user.IsActive? Color.Success: Color.Error)" Size="Size.Small">
                         @(_user.IsActive ? "Active" : "Inactive")
                     </MudChip>
                     @if (_user.EmailConfirmed)
@@ -38,17 +38,12 @@
                 </MudStack>
                 <MudStack Row="true" Spacing="2" Class="mt-3">
                     <MudTooltip Text="@ToggleTooltip">
-                        <MudButton Variant="Variant.Filled"
-                                   Color="@(_user.IsActive ? Color.Warning : Color.Success)"
-                                   OnClick="ToggleStatus"
-                                   Disabled="@IsToggleDisabled">
-                            @_user.IsActive ? "Deactivate" : "Activate"
+                        <MudButton Variant="Variant.Filled" Color="@(_user.IsActive? Color.Warning: Color.Success)"
+                            OnClick="ToggleStatus" Disabled="@IsToggleDisabled">
+                            @(_user.IsActive ? "Deactivate" : "Activate")
                         </MudButton>
                     </MudTooltip>
-                    <MudButton Variant="Variant.Filled"
-                               Color="Color.Error"
-                               OnClick="DeleteUser"
-                               Disabled="_busy">
+                    <MudButton Variant="Variant.Filled" Color="Color.Error" OnClick="DeleteUser" Disabled="_busy">
                         Delete
                     </MudButton>
                 </MudStack>
@@ -70,7 +65,8 @@
                         }
                     </MudStack>
                 }
-                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">Role assignment editing is handled in Roles/Permissions PRD.</MudText>
+                <MudText Typo="Typo.caption" Color="Color.Secondary" Class="mt-2">Role assignment editing is handled in
+                    Roles/Permissions PRD.</MudText>
             </MudPaper>
         </MudItem>
         <MudItem xs="12" md="6">
@@ -79,11 +75,14 @@
                 <MudText Typo="Typo.caption" Color="Color.Secondary">Requires reset token (from email flow).</MudText>
                 <MudForm @ref="_resetForm" Model="@_resetModel" OnValidSubmit="ResetPassword">
                     <MudTextField @bind-Value="_resetModel.Email" Label="Email" Required="true" />
-                    <MudTextField @bind-Value="_resetModel.Password" Label="New Password" InputType="InputType.Password" Required="true" />
+                    <MudTextField @bind-Value="_resetModel.Password" Label="New Password" InputType="InputType.Password"
+                        Required="true" />
                     <MudTextField @bind-Value="_resetModel.Token" Label="Reset Token" Required="true" />
                     <MudStack Row="true" Spacing="2" Class="mt-2">
-                        <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit" Disabled="_busy">Reset</MudButton>
-                        <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="ClearReset" Disabled="_busy">Clear</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit"
+                            Disabled="_busy">Reset</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="ClearReset" Disabled="_busy">
+                            Clear</MudButton>
                     </MudStack>
                 </MudForm>
             </MudPaper>
@@ -96,8 +95,10 @@
                     <MudTextField @bind-Value="_confirmModel.UserId" Label="User Id" Disabled="true" />
                     <MudTextField @bind-Value="_confirmModel.Code" Label="Confirmation Code" Required="true" />
                     <MudStack Row="true" Spacing="2" Class="mt-2">
-                        <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit" Disabled="_busy">Confirm</MudButton>
-                        <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="ClearConfirm" Disabled="_busy">Clear</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" ButtonType="ButtonType.Submit"
+                            Disabled="_busy">Confirm</MudButton>
+                        <MudButton Variant="Variant.Text" Color="Color.Secondary" OnClick="ClearConfirm" Disabled="_busy">
+                            Clear</MudButton>
                     </MudStack>
                 </MudForm>
             </MudPaper>
@@ -137,7 +138,8 @@ else
             _roles = (await UsersClient.RolesGetAsync(Id))?.ToList() ?? new List<UserRoleDto>();
             _resetModel.Email = _user?.Email ?? string.Empty;
             _confirmModel.UserId = _user?.Id ?? string.Empty;
-            _targetIsAdmin = _roles.Any(r => string.Equals(r.RoleName, RoleConstants.Admin, StringComparison.OrdinalIgnoreCase) && r.Enabled);
+            _targetIsAdmin = _roles.Any(r => string.Equals(r.RoleName, RoleConstants.Admin, StringComparison.OrdinalIgnoreCase) &&
+            r.Enabled);
         }
         catch (Exception ex)
         {
@@ -163,9 +165,9 @@ else
 
             var jwt = handler.ReadJwtToken(token);
             _currentUserId = jwt.Claims.FirstOrDefault(c =>
-                    string.Equals(c.Type, JwtRegisteredClaimNames.Sub, StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(c.Type, ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase))
-                ?.Value;
+            string.Equals(c.Type, JwtRegisteredClaimNames.Sub, StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(c.Type, ClaimTypes.NameIdentifier, StringComparison.OrdinalIgnoreCase))
+            ?.Value;
 
         }
         catch
@@ -175,9 +177,9 @@ else
     }
 
     private bool IsCurrentUser =>
-        _user is not null &&
-        !string.IsNullOrWhiteSpace(_currentUserId) &&
-        string.Equals(_currentUserId, _user.Id, StringComparison.OrdinalIgnoreCase);
+    _user is not null &&
+    !string.IsNullOrWhiteSpace(_currentUserId) &&
+    string.Equals(_currentUserId, _user.Id, StringComparison.OrdinalIgnoreCase);
 
     private bool IsToggleDisabled => _busy || _user is null || IsCurrentUser || _targetIsAdmin;
 

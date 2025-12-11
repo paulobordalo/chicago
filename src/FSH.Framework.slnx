@@ -43,4 +43,7 @@
     <File Path="Directory.Build.props" />
     <File Path="Directory.Packages.props" />
   </Folder>
+  <Folder Name="/Workspace/">
+    <Project Path="Workspace/Workspace.Blazor/Workspace.Blazor.csproj" />
+  </Folder>
 </Solution>
